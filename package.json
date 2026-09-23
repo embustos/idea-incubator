@@ -1,7 +1,14 @@
 {
-  "name": "app-ideas",
+  "name": "idea-incubator",
   "main": "expo-router/entry",
-  "version": "1.0.0",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22.13.0"
+  },
   "dependencies": {
     "@expo/ui": "~57.0.19",
     "expo": "~57.0.24",
@@ -29,15 +36,25 @@
   },
   "devDependencies": {
     "@types/react": "~19.2.2",
+    "eslint": "^9.39.5",
+    "eslint-config-expo": "~57.0.2",
     "typescript": "~6.0.3"
   },
   "scripts": {
     "start": "expo start",
+    "dev:api": "npm run dev --workspace @idea-incubator/api",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "typecheck": "npm run typecheck:mobile && npm run typecheck:api",
+    "typecheck:mobile": "tsc --noEmit",
+    "typecheck:api": "npm run typecheck --workspace @idea-incubator/api",
+    "test": "npm run test --workspace @idea-incubator/api",
+    "build:api": "npm run build --workspace @idea-incubator/api",
+    "audit": "npm audit --omit=dev --audit-level=high",
+    "ci": "npm run lint && npm run typecheck && npm run test && npm run build:api && npm run audit"
   },
-  "private": true
+  "packageManager": "npm@11.12.0"
 }

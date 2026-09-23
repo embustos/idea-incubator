@@ -30,13 +30,18 @@ yarn-error.*
 .DS_Store
 *.pem
 
-# local env files
-.env*.local
+# local env files and secrets
+.env
+.env.*
+!.env.example
 
 # typescript
 *.tsbuildinfo
 
 example
+
+# API build output
+apps/api/dist/
 
 # generated native folders
 /ios

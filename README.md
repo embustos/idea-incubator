@@ -1,56 +1,77 @@
-# Welcome to your Expo app 👋
+# Idea Incubator
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Idea Incubator is a mobile-first workspace for capturing software ideas, developing them over time, and turning them into actionable project plans with AI-assisted analysis.
 
-## Get started
+## Project status
 
-1. Install dependencies
+The project is under active development. The current foundation contains:
 
-   ```bash
-   npm install
-   ```
+- An Expo SDK 57 mobile application using Expo Router and TypeScript
+- A Fastify API workspace with a tested health endpoint
+- npm workspace orchestration
+- GitHub Actions validation for linting, typechecking, API tests, and builds
 
-2. Start the app
+## Repository layout
 
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
+```text
+.
+├── src/                 Expo Router routes and mobile application code
+├── assets/              Mobile application assets
+├── apps/
+│   └── api/             Fastify API
+└── .github/workflows/   Continuous integration
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+The Expo application remains at the repository root. Backend services live in `apps/` so Railway can deploy them independently without adding custom Metro configuration.
 
-### Other setup steps
+## Requirements
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+- Node.js 22.13 or newer
+- npm 11 or newer
 
-## Learn more
+## Local development
 
-To learn more about developing your project with Expo, look at the following resources:
+Install all workspace dependencies:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npm install
+```
 
-## Join the community
+Start the Expo application:
 
-Join our community of developers creating universal apps.
+```bash
+npm start
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Start the API on port 3000:
+
+```bash
+npm run dev:api
+```
+
+The API health endpoint is available at `http://localhost:3000/health`.
+
+## Validation
+
+Run the same checks used by CI:
+
+```bash
+npm run ci
+```
+
+Individual commands are also available:
+
+```bash
+npm run lint
+npm run typecheck
+npm run test
+npm run build:api
+```
+
+## Environment variables
+
+Copy `.env.example` to an ignored local environment file when configuration is needed. Variables prefixed with `EXPO_PUBLIC_` are visible in the bundled mobile application. Database credentials and AI provider keys must remain server-only.
+
+## Delivery workflow
+
+Changes are developed on feature branches and merged through pull requests. GitHub Actions must pass before merging into `main`. Railway will deploy the API from `main` after CI succeeds, and merged feature branches are deleted automatically.
