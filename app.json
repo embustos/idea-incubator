@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "app-ideas",
-    "slug": "app-ideas",
-    "version": "1.0.0",
+    "name": "Idea Incubator",
+    "slug": "idea-incubator",
+    "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "appideas",
+    "scheme": "ideaincubator",
     "userInterfaceStyle": "automatic",
     "ios": {
       "icon": "./assets/expo.icon"
