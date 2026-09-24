@@ -19,6 +19,7 @@ The project is under active development. The current foundation contains:
 ├── assets/              Mobile application assets
 ├── apps/
 │   └── api/             Fastify API
+├── .railway/            Railway infrastructure definition
 └── .github/workflows/   Continuous integration
 ```
 
@@ -75,3 +76,5 @@ Copy `.env.example` to an ignored local environment file when configuration is n
 ## Delivery workflow
 
 Changes are developed on feature branches and merged through pull requests. GitHub Actions must pass before merging into `main`. Railway will deploy the API from `main` after CI succeeds, and merged feature branches are deleted automatically.
+
+Railway infrastructure changes are defined in `.railway/railway.ts`. Preview them with `railway config plan` before applying them.
